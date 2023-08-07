@@ -8,31 +8,32 @@ use Illuminate\Http\Request;
 
 class ListingController extends Controller
 {
-    // Show all
     public function index()
     {
+        // Show all
         return view('listings.index', [
             'listings' => Listing::latest()->filter(request(['tag', 'search']))->paginate(6)
         ]);
     }
 
-    // Show Single
     public function show(Listing $listing)
     {
+        // Show Single
         return view('listings.show', [
             'listing' => $listing,
         ]);
     }
 
-    // Create new listing form
     public function create()
     {
+        // Create new listing form
         return view('listings.create');
     }
 
-    // Store new listing from form
     public function store(Request $request)
     {
+        // Store new listing from form
+
         // dd($request->file('logo')->store());
 
         $fields = $request->validate([
