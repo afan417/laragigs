@@ -26,7 +26,7 @@ class ListingController extends Controller
 
     public function create()
     {
-        // Create new listing form
+        // Show new listing form
         return view('listings.create');
     }
 
@@ -53,5 +53,32 @@ class ListingController extends Controller
         Listing::create($fields);
 
         return redirect('/')->with('message', 'Listing created successfully!');
+    }
+
+    public function edit(Listing $listing)
+    {
+        // Show edit form
+        return view('listings.edit',  ['listing' => $listing]);
+    }
+
+    public function update(Request $request, Listing $listing)
+    {
+        $fields = $request->validate([
+            'title' => 'required',
+            'company' => ['required'],
+            'location' => 'required',
+            'website' => 'required',
+            'email' => ['required', 'email'],
+            'tags' => 'required',
+            'description' => 'required',
+        ]);
+
+        if ($request->hasFile('logo')) {
+            $fields['logo'] = $request->file('logo')->store('logos', 'public');
+        }
+
+        $listing->update($fields);
+
+        return back()->with('message', 'Listing updated successfully!');
     }
 }

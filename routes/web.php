@@ -18,8 +18,13 @@ use App\Models\Listing;
 
 Route::get('/', [ListingController::class, 'index']);
 
-Route::get('/listings/create', [ListingController::class, 'create']); // Show Form
+Route::get('/listings/create', [ListingController::class, 'create']); // Show Create Form
 
 Route::post('/listings', [ListingController::class, 'store']); // Store
+
+Route::get('/listings/{listing}/edit', [ListingController::class, 'edit']); // Show Edit Form
+
+Route::put('/listings/{listing}', [ListingController::class, 'update']); // Edit
+
 
 Route::get('/listings/{listing}', [ListingController::class, 'show']);
