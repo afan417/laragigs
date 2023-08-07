@@ -63,6 +63,8 @@ class ListingController extends Controller
 
     public function update(Request $request, Listing $listing)
     {
+        // Edit/Update
+
         $fields = $request->validate([
             'title' => 'required',
             'company' => ['required'],
@@ -80,5 +82,14 @@ class ListingController extends Controller
         $listing->update($fields);
 
         return back()->with('message', 'Listing updated successfully!');
+    }
+
+    public function destroy(Listing $listing)
+    {
+        // Delete
+
+        $listing->delete();
+
+        return redirect('/')->with('message', 'Listing deleted!');
     }
 }
